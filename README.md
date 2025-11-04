@@ -38,9 +38,9 @@ The call-to-action section is currently bland. Make it pop! Consider:
 
 ### 2. **Design a Toolbar That Works on Desktop** 🖥️
 The current toolbar is mobile-first (back button, title, bookmark). On desktop:
-- What actions make sense?
 - How should the layout change?
 - Should it be persistent, or can it be more elegant?
+- How could it feel more native for desktop users, and less like a mobile app expanded to desktop?
 - The bookmark button already has interactive state - how can you enhance it?
 
 ### 3. **Add Polish** ✨
@@ -71,9 +71,7 @@ Think in systems, not one-offs.
 ## Technical Details
 
 - **Vue Version**: 2.7 (supports both Options API and Composition API)
-- **Your Choice**: Use either Options API or Composition API
-  - Note: Our production codebase uses Options API, so that's a plus but not required
-- **Styling**: Tailwind CSS is already set up, but you can use plain CSS if you prefer
+- **Styling**: Tailwind CSS is already set up if you want, but you can use plain CSS if you prefer
 - **Component Structure**: You can modify the component structure, but it must still accept the same props (title, blocks, actions)
 
 ## Deliverables
@@ -83,7 +81,7 @@ Think in systems, not one-offs.
    - Responsive behavior for mobile and desktop
    - Polish and micro-interactions
 
-2. **Updated styles** (within the component or separate stylesheet)
+2. **Updated styles**
 
 3. **A 2-3 minute Loom video** explaining:
    - Your design decisions
@@ -94,9 +92,7 @@ Think in systems, not one-offs.
 ## Tips for Success
 
 - **Polish over features** - We'd rather see one thing done beautifully than five things done halfway
-- **Sweat the details** - Spacing, timing, easing curves matter
 - **Think about the feel, not just the look** - How does it feel to use?
-- **Consider edge cases** - Long titles, missing images, etc.
 - **Show your taste** - This is your chance to show us what good design means to you
 
 ## Getting Started
@@ -161,13 +157,13 @@ coding-test/
 
 When you're done:
 1. Record your 2-3 minute Loom video
-2. Zip up the entire project (excluding `node_modules`)
-3. Share both the zip file and Loom link
+2. Push it to a public repo, or share a `.zip` file with the project
+3. Message me on Upwork with the loom video & code
 
 ## Questions?
 
-If you have questions about requirements or run into technical issues, please reach out. We're here to help!
+If you have questions about requirements or run into technical issues, please reach out to me on Upwork.
 
 ---
 
-**Good luck! We're excited to see what you create.** 🚀
+**Good luck! I'm excited to see what you create.** 🚀
