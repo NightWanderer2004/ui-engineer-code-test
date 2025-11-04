@@ -3,32 +3,48 @@
     <!-- Toolbar -->
     <div class="toolbar">
       <button class="back-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
       </button>
       <h1 class="page-title">{{ title }}</h1>
       <button class="bookmark-button" @click="toggleBookmark">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" :fill="isBookmarked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2">
-          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          :fill="isBookmarked ? 'currentColor' : 'none'"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
         </svg>
       </button>
     </div>
 
     <!-- Content/Blocks -->
     <div class="content-area">
-      <div
-        v-for="(block, index) in blocks"
-        :key="index"
-        class="block"
-      >
+      <div v-for="(block, index) in blocks" :key="index" class="block">
         <!-- Hero Block -->
         <div v-if="block.type === 'hero'" class="hero-block">
           <img :src="block.imageUrl" :alt="'Hero image'" />
         </div>
 
         <!-- Text Block -->
-        <div v-else-if="block.type === 'text'" class="text-block" v-html="block.content"></div>
+        <div
+          v-else-if="block.type === 'text'"
+          class="text-block"
+          v-html="block.content"
+        ></div>
 
         <!-- Video Block -->
         <div v-else-if="block.type === 'video'" class="video-block">
@@ -44,12 +60,10 @@
 
     <!-- Actions/CTA -->
     <div class="actions-section">
-      <div
-        v-for="(action, index) in actions"
-        :key="index"
-        class="action-item"
-      >
-        <p v-if="action.pricing_text && !isPurchased" class="pricing-text">{{ action.pricing_text }}</p>
+      <div v-for="(action, index) in actions" :key="index" class="action-item">
+        <p v-if="action.pricing_text && !isPurchased" class="pricing-text">
+          {{ action.pricing_text }}
+        </p>
         <button class="cta-button" @click="handleAction(action)">
           {{ isPurchased ? action.post_join_text : action.button_text }}
         </button>
@@ -60,70 +74,73 @@
 
 <script>
 export default {
-  name: 'GenericTemplate',
+  name: "GenericTemplate",
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     blocks: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     actions: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       isBookmarked: false,
-      isPurchased: false
-    }
+      isPurchased: false,
+    };
   },
   computed: {
     storageKey() {
       // Create a unique key based on the page title
-      return `page_${this.title.replace(/\s+/g, '_').toLowerCase()}`
-    }
+      return `page_${this.title.replace(/\s+/g, "_").toLowerCase()}`;
+    },
   },
   mounted() {
-    this.loadState()
+    this.loadState();
   },
   watch: {
     title() {
       // When switching pages, reload the state
-      this.loadState()
-    }
+      this.loadState();
+    },
   },
   methods: {
     loadState() {
-      const saved = localStorage.getItem(this.storageKey)
+      const saved = localStorage.getItem(this.storageKey);
       if (saved) {
-        const state = JSON.parse(saved)
-        this.isBookmarked = state.isBookmarked || false
-        this.isPurchased = state.isPurchased || false
+        const state = JSON.parse(saved);
+        this.isBookmarked = state.isBookmarked || false;
+        this.isPurchased = state.isPurchased || false;
       } else {
-        this.isBookmarked = false
-        this.isPurchased = false
+        this.isBookmarked = false;
+        this.isPurchased = false;
       }
     },
     saveState() {
-      localStorage.setItem(this.storageKey, JSON.stringify({
-        isBookmarked: this.isBookmarked,
-        isPurchased: this.isPurchased
-      }))
+      localStorage.setItem(
+        this.storageKey,
+        JSON.stringify({
+          isBookmarked: this.isBookmarked,
+          isPurchased: this.isPurchased,
+        })
+      );
     },
     toggleBookmark() {
-      this.isBookmarked = !this.isBookmarked
-      this.saveState()
+      this.isBookmarked = !this.isBookmarked;
+      this.saveState();
     },
     handleAction(action) {
-      this.isPurchased = !this.isPurchased
-      this.saveState()
-    }
-  }
-}
+      this.isPurchased = !this.isPurchased;
+      this.saveState();
+    },
+  },
+};
 </script>
 
 <style scoped>
