@@ -8,6 +8,9 @@ You'll be working with a responsive page template system. We've built a basic st
 
 ## What's Already Built
 
+<img width="4098" height="2290" alt="Screenshot 2025-11-04 at 12 33 22 pm" src="https://github.com/user-attachments/assets/177f6852-50ea-4d2e-868f-a83aae3b4ecc" />
+
+
 This project includes:
 - A Vue 2.7 app with Vite
 - Side-by-side mobile (375px) and desktop (1200px+) preview panels
