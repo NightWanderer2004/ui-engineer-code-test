@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "lucide-vue": "0.517.0",
     "vue": "^2.7.16"
   },
   "devDependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
     "@vitejs/plugin-vue2": "^2.3.1",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
