@@ -4,11 +4,12 @@
     <div class="toolbar">
       <button class="back-button"><ChevronLeft :size="22" :stroke-width="2.125" /> <span>Back</span></button>
       <h1 class="page-title">{{ title }}</h1>
-      <button class="bookmark-button" @click="toggleBookmark">
+      <button class="bookmark-button" @click="splashBookmark($event)">
+        <span class="ripple-container" ref="rippleBookmark"></span>
         <Bookmark
-          :size="22"
-          :color="isBookmarked ? 'currentColor' : 'color-mix(in srgb, var(--color-bookmark) 85%, black 5%)'"
-          :fill="isBookmarked ? 'transparent' : 'var(--color-bookmark)'"
+          :size="22.5"
+          :color="isBookmarked ? 'currentColor' : 'color-mix(in hsl, var(--color-accent), black 5%)'"
+          :fill="isBookmarked ? 'transparent' : 'var(--color-accent)'"
           :style="{
             transition: 'fill 0.1s ease-in-out, color 0.1s ease-in-out',
           }"
@@ -21,7 +22,8 @@
       <div v-for="(block, index) in blocks" :key="index" class="block">
         <!-- Hero Block -->
         <div v-if="block.type === 'hero'" class="hero-block">
-          <img :src="block.imageUrl" :alt="'Hero image'" />
+          <div v-if="!$data.heroLoaded[index]" class="skeleton skeleton-image"></div>
+          <img v-show="$data.heroLoaded[index]" :src="block.imageUrl" :alt="'Hero image'" @load="$set(heroLoaded, index, true)" />
         </div>
 
         <!-- Text Block -->
@@ -29,11 +31,14 @@
 
         <!-- Video Block -->
         <div v-else-if="block.type === 'video'" class="video-block">
+          <div v-if="!$data.videoLoaded[index]" class="skeleton skeleton-video"></div>
           <iframe
+            v-show="$data.videoLoaded[index]"
             :src="block.embedUrl"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
+            @load="$set(videoLoaded, index, true)"
           ></iframe>
         </div>
       </div>
@@ -89,6 +94,8 @@ export default {
     return {
       isBookmarked: false,
       isPurchased: false,
+      heroLoaded: [],
+      videoLoaded: [],
     }
   },
   computed: {
@@ -130,6 +137,22 @@ export default {
     toggleBookmark() {
       this.isBookmarked = !this.isBookmarked
       this.saveState()
+    },
+    splashBookmark(event) {
+      this.toggleBookmark()
+      const container = this.$refs.rippleBookmark
+      if (!container) return
+      const ripple = document.createElement('span')
+      ripple.className = 'ripple'
+      const rect = event.currentTarget.getBoundingClientRect()
+      const size = Math.max(rect.width, rect.height)
+      ripple.style.width = ripple.style.height = size + 'px'
+      ripple.style.left = event.clientX - rect.left - size / 2 + 'px'
+      ripple.style.top = event.clientY - rect.top - size / 2 + 'px'
+      container.appendChild(ripple)
+      setTimeout(() => {
+        ripple.remove()
+      }, 450)
     },
     handleAction(action) {
       this.isPurchased = !this.isPurchased

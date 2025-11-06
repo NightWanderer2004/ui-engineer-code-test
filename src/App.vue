@@ -8,7 +8,11 @@
     </div>
 
     <div class="preview-container">
-      <GenericTemplate :title="currentPageData.title" :blocks="currentPageData.blocks" :actions="currentPageData.actions" />
+      <transition name="fade" mode="out-in">
+        <div v-if="activeTab" :key="activeTab">
+          <GenericTemplate :title="currentPageData.title" :blocks="currentPageData.blocks" :actions="currentPageData.actions" />
+        </div>
+      </transition>
     </div>
   </div>
 </template>
